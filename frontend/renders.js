@@ -28,3 +28,21 @@ export function renderProductList(products, containerId) {
     container.appendChild(div);
   });
 }
+
+export function renderPriceUsdToArs(value, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+  const div = document.createElement("DIV");
+  div.classList.add("btn");
+
+  if (!value) {
+    div.classList.add("btn-danger");
+    div.innerHTML = "Error";
+    container.appendChild(div);
+    return;
+  }
+
+  div.classList.add("btn-success", "fw-bold");
+  div.innerHTML = `USD/ARS oficial $${value} ARS`;
+  container.appendChild(div);
+}
