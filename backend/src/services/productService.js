@@ -9,7 +9,7 @@ class ProductService {
   async create() {}
 
   async getAll(queries) {
-    const { category, sort } = queries;
+    const { category, sort, search } = queries;
 
     let products = await this.#repository.getAll();
 
@@ -35,6 +35,10 @@ class ProductService {
           break;
           deafult: break;
       }
+    }
+
+    if (search && search.trim()) {
+      products = products.filter((p) => p.name.toLowerCase().includes(search));
     }
 
     return products;
