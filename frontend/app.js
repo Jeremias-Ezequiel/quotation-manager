@@ -8,6 +8,9 @@ const filters = {
   search: "",
 };
 
+// This variable is important because it stores the timer id to clear it on every input value, preventing multiples requests in the search by name
+let timeout;
+
 document.addEventListener("DOMContentLoaded", async (e) => {
   e.preventDefault();
 
@@ -34,6 +37,18 @@ document.querySelectorAll("#orderby-filter li").forEach((li) => {
     filters.sortBy = order;
     updateProducts();
   });
+});
+
+document.getElementById("search-filter").addEventListener("input", (e) => {
+  // We need apply debouncing because the input will send a request for each input value
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    filters.search = e.target.value.trim();
+
+    if (filters.search) {
+      updateProducts();
+    }
+  }, 500);
 });
 
 async function updateProducts() {
