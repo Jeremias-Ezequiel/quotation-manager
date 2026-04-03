@@ -10,8 +10,8 @@ export function renderProductList(products, containerId, { data: priceArs }) {
     return;
   }
 
-  products.data.forEach((products) => {
-    const { id, image_url, sku, name, brand, price_usd, category } = products;
+  products.data.forEach((product) => {
+    const { id, image_url, sku, name, brand, price_usd, category } = product;
 
     const totalPriceArs = formatPrice(price_usd * priceArs, "es-AR", "ARS");
     const usdFormated = formatPrice(price_usd);
@@ -28,8 +28,8 @@ export function renderProductList(products, containerId, { data: priceArs }) {
                           <li class="list-group-item">Brand: ${brand}</li>
                         </ul>
                         <div class="card-body d-flex gap-3">
-                          <a href="#" class="btn btn-primary">SHOW DETAILS</a>
-                          <a href="#" class="btn btn-primary">QUOTE PRICE</a>
+                          <button href="#" data-sku='${sku}' class="btn btn-primary btn-show-details">SHOW DETAILS</button>
+                          <button href="#" class="btn btn-primary">QUOTE PRICE</button>
                           </div>
                         </div>`;
     container.appendChild(div);
@@ -52,4 +52,24 @@ export function renderPriceUsdToArs(value, containerId) {
   div.classList.add("btn-success", "fw-bold");
   div.innerHTML = `USD/ARS oficial $${value} ARS`;
   container.appendChild(div);
+}
+
+export function showModal({ data, priceArs }) {
+  const [product] = data;
+  const { name, price_usd } = product;
+
+  document.getElementById("modal-product-title").innerHTML = name;
+  document.getElementById("modal-product-usd").innerHTML =
+    formatPrice(price_usd);
+
+  const totalPrice = formatPrice(priceArs * price_usd, "es-AR", "ARS");
+
+  document.getElementById("modal-product-ars").innerHTML = totalPrice;
+
+  const btnAdd = document.getElementById("btn-add-quote");
+  // btnAdd.onclick(() => {addToQuote(product);});
+
+  const modal = document.getElementById("detailProductModal");
+  const instBootstrap = new bootstrap.Modal(modal);
+  instBootstrap.show();
 }
