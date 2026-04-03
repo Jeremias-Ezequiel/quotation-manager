@@ -1,5 +1,9 @@
 import { LOCAL_API_URL } from "./const.js";
-import { renderProductList, renderPriceUsdToArs } from "./renders.js";
+import {
+  renderProductList,
+  renderPriceUsdToArs,
+  showModal,
+} from "./renders.js";
 import { fetchData } from "./utils/api.js";
 
 const filters = {
@@ -52,6 +56,21 @@ document.getElementById("search-filter").addEventListener("input", (e) => {
     updateProducts();
   }, 500);
 });
+
+document
+  .getElementById("products_container")
+  .addEventListener("click", async (e) => {
+    if (e.target.classList.contains("btn-show-details")) {
+      const sku = e.target.dataset.sku;
+      try {
+        const product = await fetchData(`${LOCAL_API_URL}/api/products/${sku}`);
+        product.priceArs = priceUsd.data;
+        showModal(product);
+      } catch (err) {
+        alert("No se pudo cargar la información del prodcuto");
+      }
+    }
+  });
 
 async function updateProducts() {
   const queryParams = new URLSearchParams({
