@@ -5,5 +5,6 @@ import { clearQueryParams } from "../middlewares/CleanQueryParams.js";
 const router = Router();
 
 router.get("/products", clearQueryParams, controller.getAll);
+router.get("/products/:sku", controller.getBySku);
 
 export default router;

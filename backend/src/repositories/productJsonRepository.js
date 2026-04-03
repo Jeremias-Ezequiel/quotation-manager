@@ -12,6 +12,12 @@ class ProductJsonRepository extends IProductInterface {
   async getById(id) {}
   async create(data) {}
   async update() {}
+
+  async getBySku(sku) {
+    const products = await this.getAll();
+    const product = products.filter((p) => p.sku === sku);
+    return product;
+  }
 }
 
 export default ProductJsonRepository;

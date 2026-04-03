@@ -22,6 +22,24 @@ class ProductController {
       });
     }
   };
+
+  getBySku = async (req, res) => {
+    try {
+      const result = await service.getProductBySku(req.params);
+
+      res.status(200).json({
+        success: true,
+        message: "Product obtained correctly",
+        data: result,
+      });
+    } catch (err) {
+      res.status(404).json({
+        success: false,
+        message: err.message,
+        data: null,
+      });
+    }
+  };
 }
 
 export default new ProductController();

@@ -46,6 +46,26 @@ class ProductService {
 
     return products;
   }
+
+  async getProductBySku({ sku }) {
+    const regexPattern = /^[A-Z0-9]{3,}-[A-Z0-9]{3,}-[A-Z0-9]{3,}$/;
+
+    if (!regexPattern.test(sku)) {
+      const err = new Error("Invalid SKU: xxx-xxx-xxx");
+      err.status = 400;
+      throw err;
+    }
+
+    const product = await this.#repository.getBySku(sku);
+
+    if (!product || product.length === 0) {
+      const err = new Error("The product doesn't exist");
+      err.status = 404;
+      throw err;
+    }
+
+    return product;
+  }
 }
 
 export default ProductService;
