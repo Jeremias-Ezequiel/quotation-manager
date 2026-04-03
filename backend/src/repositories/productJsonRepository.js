@@ -8,6 +8,10 @@ class ProductJsonRepository extends IProductInterface {
     const data = fs.readFileSync(jsonPath, "utf-8");
     return JSON.parse(data);
   }
+
+  async getById(id) {}
+  async create(data) {}
+  async update() {}
 }
 
 export default ProductJsonRepository;

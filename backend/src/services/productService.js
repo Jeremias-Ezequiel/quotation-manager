@@ -14,7 +14,7 @@ class ProductService {
     let products = await this.#repository.getAll();
 
     // ByCategories
-    if (category) {
+    if (category && category !== "all") {
       products = products.filter((p) => p.category === category);
       if (!products.length) {
         throw new Error(`The category ${category} is not a valid category.`);
@@ -38,8 +38,10 @@ class ProductService {
       }
     }
 
-    if (search && search.trim()) {
-      products = products.filter((p) => p.name.toLowerCase().includes(search));
+    if (search) {
+      products = products.filter((p) =>
+        p.name.toLowerCase().includes(search.toLowerCase()),
+      );
     }
 
     return products;
