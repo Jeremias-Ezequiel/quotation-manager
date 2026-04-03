@@ -1,0 +1,4 @@
+#orderby-filter li,
+#categories-filter li {
+  cursor: pointer;
+}

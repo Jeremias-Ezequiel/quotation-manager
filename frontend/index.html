@@ -10,6 +10,7 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="app.css" />
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -28,13 +29,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
+            <li class="nav-item" id="today_price_ars"></li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#"
                 >Catalog</a
               >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Disabled</a>
             </li>
           </ul>
         </div>
@@ -52,26 +51,29 @@
               type="search"
               placeholder="Search by name"
               aria-label="Search"
+              id="search-filer"
             />
           </section>
           <!-- Categories-->
           <section>
             <h4>Categories</h4>
-            <ul class="list-group">
-              <li class="list-group-item">All</li>
-              <li class="list-group-item">Server</li>
-              <li class="list-group-item">Networking</li>
-              <li class="list-group-item">Storage</li>
-              <li class="list-group-item">Software</li>
+            <ul class="list-group" id="categories-filter">
+              <li data-category="" class="list-group-item">All</li>
+              <li data-category="server" class="list-group-item">Server</li>
+              <li data-category="networking" class="list-group-item">
+                Networking
+              </li>
+              <li data-category="storage" class="list-group-item">Storage</li>
+              <li data-category="software" class="list-group-item">Software</li>
             </ul>
           </section>
           <!--Filters-->
           <section>
             <h4>Order by</h4>
-            <ul class="list-group">
-              <li class="list-group-item">Name</li>
-              <li class="list-group-item">Price ↑ ASC</li>
-              <li class="list-group-item">Price ↓ DESC</li>
+            <ul class="list-group" id="orderby-filter">
+              <li data-order="name" class="list-group-item">Name</li>
+              <li data-order="asc" class="list-group-item">Price ↑ ASC</li>
+              <li data-order="desc" class="list-group-item">Price ↓ DESC</li>
             </ul>
           </section>
           <!-- Statistics-->
@@ -80,7 +82,10 @@
 
       <!--Products-->
       <div class="col-8 p-3">
-        <div class="container" id="products_container"></div>
+        <div
+          class="container d-flex flex-wrap gap-3 justify-content-around"
+          id="products_container"
+        ></div>
       </div>
     </main>
     <script
