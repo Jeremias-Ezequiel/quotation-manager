@@ -45,9 +45,7 @@ document.getElementById("search-filter").addEventListener("input", (e) => {
   timeout = setTimeout(() => {
     filters.search = e.target.value.trim();
 
-    if (filters.search) {
-      updateProducts();
-    }
+    updateProducts();
   }, 500);
 });
 
