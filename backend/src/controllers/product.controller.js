@@ -7,10 +7,19 @@ const service = new ProductService(new ProductJsonRepository());
 class ProductController {
   getAll = async (req, res) => {
     try {
-      const result = await service.getAll();
-      res.status(200).json({ statusCode: 200, data: result });
+      const result = await service.getAll(req.query);
+
+      res.status(200).json({
+        success: true,
+        message: "products obtained correctly",
+        data: result,
+      });
     } catch (err) {
-      res.status(404).json({ statusCode: 404, message: err });
+      res.status(500).json({
+        success: false,
+        message: "error obtaining all products",
+        data: null,
+      });
     }
   };
 }
