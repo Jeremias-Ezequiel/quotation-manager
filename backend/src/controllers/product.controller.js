@@ -17,7 +17,7 @@ class ProductController {
     } catch (err) {
       res.status(500).json({
         success: false,
-        message: "error obtaining all products",
+        message: err.message,
         data: null,
       });
     }

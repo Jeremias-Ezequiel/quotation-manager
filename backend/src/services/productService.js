@@ -13,9 +13,12 @@ class ProductService {
 
     let products = await this.#repository.getAll();
 
-    // ByCateories
+    // ByCategories
     if (category) {
       products = products.filter((p) => p.category === category);
+      if (!products.length) {
+        throw new Error(`The category ${category} is not a valid category.`);
+      }
     }
 
     // Order By
