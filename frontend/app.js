@@ -8,6 +8,8 @@ const filters = {
   search: "",
 };
 
+let priceUsd;
+
 // This variable is important because it stores the timer id to clear it on every input value, preventing multiples requests in the search by name
 let timeout;
 
@@ -19,8 +21,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     `${LOCAL_API_URL}/api/exchange-rates/official`,
   );
 
+  priceUsd = exchangePrice;
+
   renderPriceUsdToArs(exchangePrice.data, "today_price_ars");
-  renderProductList(products, "products_container");
+  renderProductList(products, "products_container", exchangePrice);
 });
 
 document.querySelectorAll("#categories-filter li").forEach((li) => {
@@ -56,10 +60,15 @@ async function updateProducts() {
     search: filters.search,
   }).toString();
 
-  console.log(queryParams);
-
-  const products = await fetchData(
-    `${LOCAL_API_URL}/api/products?${queryParams}`,
-  );
-  renderProductList(products, "products_container");
+  try {
+    const products = await fetchData(
+      `${LOCAL_API_URL}/api/products?${queryParams}`,
+    );
+    renderProductList(products, "products_container", priceUsd);
+  } catch (err) {
+    const container = document.getElementById("products_container");
+    container.innerHTML =
+      "<p class='btn btn-error'>Error al obtener los productos</p>";
+    console.log(err);
+  }
 }
