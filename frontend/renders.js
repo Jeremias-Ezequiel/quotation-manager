@@ -4,7 +4,8 @@ export function renderProductList(products, containerId) {
   container.innerHTML = "";
 
   if (products.data.length === 0) {
-    container.innerHTML = "<p>There is not products</p>";
+    container.innerHTML =
+      "<p class='btn btn-danger'>No products were found. Please try another search.</p>";
     return;
   }
 
