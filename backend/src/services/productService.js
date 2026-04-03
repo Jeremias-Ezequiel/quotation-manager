@@ -33,7 +33,8 @@ class ProductService {
         case "desc":
           products = products.sort((a, b) => b.price_usd - a.price_usd);
           break;
-          deafult: break;
+        default:
+          break;
       }
     }
 
