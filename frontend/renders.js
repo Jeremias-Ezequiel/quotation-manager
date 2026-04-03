@@ -1,6 +1,7 @@
-export function renderProductList(products, containerId) {
-  const container = document.getElementById(containerId);
+import { formatPrice } from "./utils/utils.js";
 
+export function renderProductList(products, containerId, { data: priceArs }) {
+  const container = document.getElementById(containerId);
   container.innerHTML = "";
 
   if (products.data.length === 0) {
@@ -11,14 +12,19 @@ export function renderProductList(products, containerId) {
 
   products.data.forEach((products) => {
     const { id, image_url, sku, name, brand, price_usd, category } = products;
+
+    const totalPriceArs = formatPrice(price_usd * priceArs, "es-AR", "ARS");
+    const usdFormated = formatPrice(price_usd);
+
     const div = document.createElement("DIV");
-    div.innerHTML = `<div class="card" style="width: 18rem; height:350px">
+    div.innerHTML = `<div class="card" style="width: 18rem; height:400px">
                         <img src="${image_url}" class="card-img-top" alt="${id}${sku}">
                         <div class="card-body">
                           <h5 class="card-title">${name}</h5>
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item">Category: ${category}</li>
-                          <li class="list-group-item">Price: $${price_usd} USD</li>
+                          <li class="list-group-item">Price USD: ${usdFormated} USD</li>
+                          <li class="list-group-item">Price ARS: ${totalPriceArs} ARS</li>
                           <li class="list-group-item">Brand: ${brand}</li>
                         </ul>
                         <div class="card-body d-flex gap-3">
