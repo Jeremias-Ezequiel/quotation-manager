@@ -3,6 +3,7 @@ import {
   renderProductList,
   renderPriceUsdToArs,
   showModal,
+  renderQuoteList,
 } from "./renders.js";
 import { fetchData } from "./utils/api.js";
 
@@ -13,6 +14,8 @@ const filters = {
 };
 
 let priceUsd;
+
+let productsList = JSON.parse(localStorage.getItem("quotation-list")) ?? [];
 
 // This variable is important because it stores the timer id to clear it on every input value, preventing multiples requests in the search by name
 let timeout;
@@ -60,15 +63,32 @@ document.getElementById("search-filter").addEventListener("input", (e) => {
 document
   .getElementById("products_container")
   .addEventListener("click", async (e) => {
+    // Recorrer el elemento y sus padres hasta que encuentre un nodo que coincida con el css selector
+    const showDetailsBtm = e.target.closest(".btn-show-details");
+    const addQuoteBtm = e.target.closest(".btn-add-quote");
+
+    if (!showDetailsBtm && !addQuoteBtm) {
+      return;
+    }
+
+    const sku = showDetailsBtm
+      ? showDetailsBtm.dataset.sku
+      : addQuoteBtm.dataset.sku;
+    let product;
+
+    try {
+      product = await fetchData(`${LOCAL_API_URL}/api/products/${sku}`);
+      product.data.priceArs = priceUsd.data;
+    } catch (err) {}
+
     if (e.target.classList.contains("btn-show-details")) {
-      const sku = e.target.dataset.sku;
-      try {
-        const product = await fetchData(`${LOCAL_API_URL}/api/products/${sku}`);
-        product.priceArs = priceUsd.data;
-        showModal(product);
-      } catch (err) {
-        alert("Can not load modal. Please try again later.");
-      }
+      showModal(product);
+    }
+
+    if (e.target.classList.contains("btn-add-quote")) {
+      productsList.push(product.data);
+      localStorage.setItem("quotation-list", JSON.stringify(productsList));
+      renderQuoteList(productsList);
     }
   });
 
