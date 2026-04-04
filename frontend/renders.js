@@ -6,7 +6,7 @@ export function renderProductList(products, containerId, { data: priceArs }) {
 
   if (products.data.length === 0) {
     container.innerHTML =
-      "<p class='btn btn-danger'>No products were found. Please try another search.</p>";
+      "<p class='bg-danger fs-2 fw-bold text-white p-2 rounded'>There are no products with this name. Please try again.</p>";
     return;
   }
 

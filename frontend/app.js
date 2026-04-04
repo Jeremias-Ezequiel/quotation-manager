@@ -67,7 +67,7 @@ document
         product.priceArs = priceUsd.data;
         showModal(product);
       } catch (err) {
-        alert("No se pudo cargar la información del prodcuto");
+        alert("Can not load modal. Please try again later.");
       }
     }
   });
@@ -85,9 +85,8 @@ async function updateProducts() {
     );
     renderProductList(products, "products_container", priceUsd);
   } catch (err) {
-    const container = document.getElementById("products_container");
-    container.innerHTML =
-      "<p class='btn btn-error'>Error al obtener los productos</p>";
-    console.log(err);
+    // const container = document.getElementById("products_container");
+    // container.innerHTML =
+    // ("<p class='bg-danger fw-bold fs-2'>There are not products with these name</p>");
   }
 }

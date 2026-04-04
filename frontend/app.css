@@ -2,3 +2,7 @@
 #categories-filter li {
   cursor: pointer;
 }
+
+main {
+  min-height: 100vh;
+}
