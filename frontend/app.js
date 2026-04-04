@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
 document.querySelectorAll("#categories-filter li").forEach((li) => {
   li.addEventListener("click", () => {
     const category = li.dataset.category;
+    filters.search = "";
     filters.category = category;
     updateProducts();
   });
@@ -45,6 +46,7 @@ document.querySelectorAll("#categories-filter li").forEach((li) => {
 document.querySelectorAll("#orderby-filter li").forEach((li) => {
   li.addEventListener("click", () => {
     const order = li.dataset.order;
+    filters.search = "";
     filters.sortBy = order;
     updateProducts();
   });
@@ -55,6 +57,8 @@ document.getElementById("search-filter").addEventListener("input", (e) => {
   clearTimeout(timeout);
   timeout = setTimeout(() => {
     filters.search = e.target.value.trim();
+    filters.category = "";
+    filters.sortBy = "";
 
     updateProducts();
   }, 500);
@@ -92,6 +96,17 @@ document
     }
   });
 
+document.getElementById("quotation-list").addEventListener("click", (e) => {
+  const btnClicked = e.target.closest(".btn-del-quote-list");
+
+  if (!btnClicked) {
+    return;
+  }
+
+  clearQuotationList();
+  clearContainerById("quotation-list");
+});
+
 async function updateProducts() {
   const queryParams = new URLSearchParams({
     category: filters.category,
@@ -108,5 +123,18 @@ async function updateProducts() {
     // const container = document.getElementById("products_container");
     // container.innerHTML =
     // ("<p class='bg-danger fw-bold fs-2'>There are not products with these name</p>");
+  }
+}
+
+function clearQuotationList() {
+  productsList = [];
+  localStorage.clear();
+  updateProducts(productsList);
+}
+
+function clearContainerById(id) {
+  const container = document.getElementById(id);
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
   }
 }

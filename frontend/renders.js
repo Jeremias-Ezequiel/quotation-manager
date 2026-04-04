@@ -145,8 +145,8 @@ export function renderQuoteList(products) {
   container.appendChild(div);
 
   const delButton = document.createElement("BUTTON");
-  delButton.classList.add("btn", "btn-danger");
-  delButton.id = "delQuoteList";
+  delButton.classList.add("btn", "btn-danger", "btn-del-quote-list");
+  // delButton.id = "delQuoteList";
   delButton.innerHTML = "Clear List";
   container.append(delButton);
 }

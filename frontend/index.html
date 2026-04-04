@@ -95,7 +95,28 @@
       <!--Quickly Quote-->
       <div class="col-2 bg-primary-subtle">
         <div class="p-3">
-          <ul></ul>
+          <h2 class="text-center">Quick Quote</h2>
+          <div class="d-flex my-2">
+            <label class="col-6" for="company-name">Company Name:</label>
+            <input
+              class="col-6"
+              type="text"
+              id="company-name"
+              name="company-name"
+            />
+          </div>
+
+          <div class="d-flex my-2">
+            <label class="col-6" for="cuit">CUIT/CUIL:</label>
+            <input class="col-6" type="text" id="cuit" name="cuit" />
+          </div>
+          <select class="form-select" name="iva-condition" id="iva-condition">
+            <option value="-">IVA Condition</option>
+            <option value="monotributista">Monotributista</option>
+            <option value="responsable-inscripto">Responsable Inscripto</option>
+            <option value="exento">Exento</option>
+          </select>
+          <ul id="quotation-list"></ul>
         </div>
       </div>
 
