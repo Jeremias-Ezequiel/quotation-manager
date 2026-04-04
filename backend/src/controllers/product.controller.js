@@ -9,13 +9,13 @@ class ProductController {
     try {
       const result = await service.getAll(req.query);
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         message: "products obtained correctly",
         data: result,
       });
     } catch (err) {
-      res.status(500).json({
+      return res.status(500).json({
         success: false,
         message: err.message,
         data: null,
@@ -27,13 +27,13 @@ class ProductController {
     try {
       const result = await service.getProductBySku(req.params);
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         message: "Product obtained correctly",
         data: result,
       });
     } catch (err) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: err.message,
         data: null,

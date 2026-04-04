@@ -3,7 +3,7 @@ export const skuHandler = (req, res, next) => {
   const { sku } = req.params;
 
   if (!regexPattern.test(sku)) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       message: "Invalid SKU format. Must be xxx-xxx-xxx",
       data: null,
