@@ -22,10 +22,11 @@ In the B2B IT sector, corporate infraestructure (servers, networking, licenses) 
 - Express (5.2.1)
 - JavaScript
 - CORS
-- DolarAPI (URl here)
+- [DolarAPI](https://dolarapi.com/docs/argentina/)
 
 ### Frontend
 
 - HTML
 - CSS
 - JavaScript
+- Bootstrap

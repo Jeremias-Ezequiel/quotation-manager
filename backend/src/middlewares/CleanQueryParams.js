@@ -1,4 +1,4 @@
-export const clearQueryParams = (req, res, next) => {
+export const cleanQueryParams = (req, res, next) => {
   if (req.query) {
     for (let key in req.query) {
       if (typeof req.query[key] === "string") {
