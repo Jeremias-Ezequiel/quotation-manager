@@ -23,14 +23,6 @@ class ProductService {
   }
 
   async getProductBySku({ sku }) {
-    const regexPattern = /^([A-Z0-9]{2,}-){2}[A-Z0-9]{2,}(-[A-Z0-9]{2,})?$/;
-
-    if (!regexPattern.test(sku)) {
-      const err = new Error("Invalid SKU: xxx-xxx-xxx");
-      err.status = 400;
-      throw err;
-    }
-
     const product = await this.#repository.getBySku(sku);
 
     if (!product || product.length === 0) {
