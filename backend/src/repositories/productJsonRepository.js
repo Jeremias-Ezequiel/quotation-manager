@@ -47,7 +47,7 @@ class ProductJsonRepository extends IProductInterface {
 
   async getBySku(sku) {
     const products = await this.getAll();
-    const product = products.filter((p) => p.sku === sku);
+    const product = products.find((p) => p.sku === sku);
     return product;
   }
 }
