@@ -81,7 +81,7 @@ export function renderQuoteList(products) {
   let totalQuotationUsd = 0;
 
   products.forEach((p) => {
-    const { name, brand, price_usd, priceArs } = p;
+    const { name, brand, price_usd, priceArs, sku } = p;
     const totalPriceArs = priceArs * price_usd;
 
     totalQuotationArs += totalPriceArs;
@@ -101,12 +101,15 @@ export function renderQuoteList(products) {
       "border-bottom",
       "border-5",
       "border-primary",
+      "align-items-center",
     );
-    li.innerHTML = `<h4>Name: ${name}</h4>
+
+    li.innerHTML = `<h4>${name}</h4>
                     <div class='d-flex flex-column'> 
-                      <p>USD: ${formatedUsd}</p>
-                      <p>ARS: ${formatedTotalPriceARS}</p>
+                      <p class='fw-bold'>USD: ${formatedUsd}</p>
+                      <p class='fw-bold'>ARS: ${formatedTotalPriceARS}</p>
                     </div>
+                    <buttom class='btn btn-danger del-item-quote h-25' data-sku='${sku}'>delete</buttom>
     `;
     container.appendChild(li);
   });

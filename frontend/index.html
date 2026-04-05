@@ -81,7 +81,7 @@
       </div>
 
       <!--Products-->
-      <div class="col-8 p-3">
+      <div class="col-7 p-3">
         <div
           class="container d-flex flex-wrap gap-3 justify-content-around"
           id="products_container"
@@ -93,13 +93,15 @@
       </div>
 
       <!--Quickly Quote-->
-      <div class="col-2 bg-primary-subtle">
-        <div class="p-3">
+      <div class="col-3 bg-primary-subtle">
+        <div class="p-3 d-flex flex-column">
           <h2 class="text-center">Quick Quote</h2>
           <div class="d-flex my-2">
-            <label class="col-6" for="company-name">Company Name:</label>
+            <label class="col-4 fw-bold" for="company-name"
+              >Company Name:</label
+            >
             <input
-              class="col-6"
+              class="col-8 p-2"
               type="text"
               id="company-name"
               name="company-name"
@@ -107,10 +109,14 @@
           </div>
 
           <div class="d-flex my-2">
-            <label class="col-6" for="cuit">CUIT/CUIL:</label>
-            <input class="col-6" type="text" id="cuit" name="cuit" />
+            <label class="col-4 fw-bold" for="cuit">CUIT/CUIL:</label>
+            <input class="col-8 p-2" type="text" id="cuit" name="cuit" />
           </div>
-          <select class="form-select" name="iva-condition" id="iva-condition">
+          <select
+            class="form-select text-center"
+            name="iva-condition"
+            id="iva-condition"
+          >
             <option value="-">IVA Condition</option>
             <option value="monotributista">Monotributista</option>
             <option value="responsable-inscripto">Responsable Inscripto</option>

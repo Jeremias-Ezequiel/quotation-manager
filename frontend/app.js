@@ -97,14 +97,22 @@ document
   });
 
 document.getElementById("quotation-list").addEventListener("click", (e) => {
-  const btnClicked = e.target.closest(".btn-del-quote-list");
+  const btnDelClicked = e.target.closest(".btn-del-quote-list");
+  const delItemQuote = e.target.closest(".del-item-quote");
 
-  if (!btnClicked) {
+  if (!btnDelClicked && !delItemQuote) {
     return;
   }
 
-  clearQuotationList();
-  clearContainerById("quotation-list");
+  if (btnDelClicked) {
+    clearQuotationList();
+    clearContainerById("quotation-list");
+  }
+
+  if (delItemQuote) {
+    const sku = delItemQuote.dataset.sku;
+    deleteProductInQuotationList(sku);
+  }
 });
 
 async function updateProducts() {
@@ -136,5 +144,15 @@ function clearContainerById(id) {
   const container = document.getElementById(id);
   while (container.firstChild) {
     container.removeChild(container.firstChild);
+  }
+}
+
+function deleteProductInQuotationList(sku) {
+  const newProductsList = productsList.filter((p) => p.sku !== sku);
+  productsList = newProductsList;
+  if (productsList.length) {
+    renderQuoteList(productsList);
+  } else {
+    clearContainerById("quotation-list");
   }
 }
