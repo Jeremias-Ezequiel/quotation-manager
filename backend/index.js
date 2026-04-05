@@ -6,6 +6,7 @@ import cors from "cors";
 import notFound from "./src/middlewares/NotFound.js";
 import productRoute from "./src/routes/product.routes.js";
 import exchangeRoute from "./src/routes/exchange-rates.routes.js";
+import pdfRoute from "./src/routes/generatePdf.route.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use("/api", productRoute);
 app.use("/api", exchangeRoute);
+app.use("/api", pdfRoute);
 
 // Show a message when the endpoint is incorrect
 app.use(notFound);
