@@ -1,9 +1,9 @@
 import { Router } from "express";
 const route = Router();
-// import { buildPDF } from "../utils/generatePdf.js";
 import PDFDocument from "pdfkit";
+import { validateCuit } from "../middlewares/ValidateCuit.js";
 
-route.post("/generate-pdf", (req, res) => {
+route.post("/generate-pdf", validateCuit, (req, res) => {
   const doc = new PDFDocument({ bufferPages: true });
 
   const {
@@ -16,11 +16,9 @@ route.post("/generate-pdf", (req, res) => {
     ivaCondition,
   } = req.body;
 
-  const fileName = `Quotation-${clientName}-${Date.now()}.pdf`;
-
   res.writeHead(200, {
     "Content-Type": "Application/pdf",
-    "Content-Disposition": `attachment;filename=${fileName}`,
+    "Content-Disposition": `attachment;filename=Quotation-${clientName}-${Date.now()}.pdf`,
   });
 
   doc.pipe(res);
@@ -44,7 +42,6 @@ route.post("/generate-pdf", (req, res) => {
   doc.fontSize(12).text(`${totalFinal}`);
 
   doc.end();
-  console.log(fileName);
 });
 
 export default route;

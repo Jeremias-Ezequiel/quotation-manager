@@ -1,4 +1,4 @@
-# Budget Manager
+# Quotation Manager
 
 - [Project Description](#project-description)
 - [Features](#features)
@@ -12,6 +12,7 @@
   - [Create Product](#create-product)
   - [Delete Product](#delete-product)
   - [Get Official Exchange Rates](#get-official-exchange-rate)
+- [Unit Test](#unit-test)
 - [Postman Collection](#postman-collection)
 
 ## Project Description
@@ -130,6 +131,14 @@ Delete a product by sku
 Use an external API to get the official exchange rate updated.
 
 - Route: `GET /api/exchange-rate/official`
+
+## Unit Test
+
+To run unit test execute the next command
+
+```bash
+npm test
+```
 
 # Postman Collection
 

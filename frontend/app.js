@@ -97,24 +97,54 @@ document
     }
   });
 
-document.getElementById("quotation-list").addEventListener("click", (e) => {
-  const btnDelClicked = e.target.closest(".btn-del-quote-list");
-  const delItemQuote = e.target.closest(".del-item-quote");
+document
+  .getElementById("quotation-list")
+  .addEventListener("click", async (e) => {
+    const btnDelClicked = e.target.closest(".btn-del-quote-list");
+    const delItemQuote = e.target.closest(".del-item-quote");
+    const btnCreatePdf = e.target.closest(".btn-create-pdf");
 
-  if (!btnDelClicked && !delItemQuote) {
-    return;
-  }
+    if (!btnDelClicked && !delItemQuote && !btnCreatePdf) {
+      return;
+    }
 
-  if (btnDelClicked) {
-    clearQuotationList();
-    clearContainerById("quotation-list");
-  }
+    if (btnDelClicked) {
+      clearQuotationList();
+      clearContainerById("quotation-list");
+    }
 
-  if (delItemQuote) {
-    const sku = delItemQuote.dataset.sku;
-    deleteProductInQuotationList(sku);
-  }
-});
+    if (delItemQuote) {
+      const sku = delItemQuote.dataset.sku;
+      deleteProductInQuotationList(sku);
+    }
+
+    if (btnCreatePdf) {
+      const companyName = document.getElementById("company-name").value;
+      const cuit = document.getElementById("cuit").value;
+      const ivaCondition = document.getElementById("iva-condition").value;
+      const subtotalArs = document.getElementById("subtotal-ars").textContent;
+      const taxesIva = document.getElementById("taxes-iva").textContent;
+      const totalFinalARS = document.getElementById("total-final").textContent;
+
+      if (!companyName || !cuit || !ivaCondition) {
+        alert(
+          "Company name, cuit or IVA condition are missing. Complete these inputs and try again.",
+        );
+        return;
+      }
+
+      const data = {
+        companyName,
+        cuit,
+        ivaCondition,
+        subtotalArs,
+        taxesIva,
+        totalFinalARS,
+      };
+
+      await createProductPDF(data);
+    }
+  });
 
 async function updateProducts() {
   const queryParams = new URLSearchParams({
@@ -155,5 +185,45 @@ function deleteProductInQuotationList(sku) {
     renderQuoteList(productsList);
   } else {
     clearContainerById("quotation-list");
+  }
+}
+
+async function createProductPDF(data) {
+  const payload = {
+    clientName: data.companyName,
+    cuit: data.cuit,
+    products: productsList,
+    ivaCondition: data.ivaCondition,
+    subTotalArs: data.subtotalArs,
+    taxesIva: data.taxesIva,
+    totalFinal: data.totalFinalARS,
+  };
+
+  try {
+    const response = await fetch(`${LOCAL_API_URL}/api/generate-pdf`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errData = await response.json();
+      alert(errData.message);
+      return;
+    }
+
+    // Cada pedacito de archivo que llega del backend se ensamblan en una caja
+    const blob = await response.blob();
+
+    const fileUrl = window.URL.createObjectURL(blob); // creamos una URL temporal
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = `Quotation-${payload.clientName}-${Date.now()}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(fileUrl);
+  } catch (err) {
+    alert("Error creating the PDF:", err.message);
   }
 }
