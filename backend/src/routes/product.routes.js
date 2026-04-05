@@ -9,5 +9,6 @@ const router = Router();
 router.get("/products", cleanQueryParams, controller.getAll);
 router.get("/products/:sku", skuHandler, controller.getBySku);
 router.post("/products", StoreProductHandler, controller.create);
+router.delete("/products/:sku", skuHandler, controller.delete);
 
 export default router;

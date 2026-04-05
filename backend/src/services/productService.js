@@ -75,6 +75,11 @@ class ProductService {
 
     return result;
   }
+
+  async deleteProduct({ sku }) {
+    const result = await this.#repository.delete(sku);
+    return result;
+  }
 }
 
 export default ProductService;

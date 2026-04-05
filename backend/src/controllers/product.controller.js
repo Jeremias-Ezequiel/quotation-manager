@@ -60,6 +60,25 @@ class ProductController {
       });
     }
   };
+
+  delete = async (req, res) => {
+    try {
+      const result = await service.deleteProduct(req.params);
+
+      res.status(200).json({
+        success: true,
+        message: "The product was deleted successfully",
+        data: result,
+      });
+    } catch (err) {
+      const status = err.status || 500;
+      return res.status(status).json({
+        success: false,
+        message: err.message,
+        data: null,
+      });
+    }
+  };
 }
 
 export default new ProductController();

@@ -47,7 +47,7 @@ class ProductJsonRepository extends IProductInterface {
   async create(data) {
     const jsonProducts = await this.getAll();
     jsonProducts.push(data.toJson());
-    await fs.writeFileSync(this.jsonPath, JSON.stringify(jsonProducts));
+    fs.writeFileSync(this.jsonPath, JSON.stringify(jsonProducts));
     return data.toJson();
   }
   async update() {}
@@ -56,6 +56,21 @@ class ProductJsonRepository extends IProductInterface {
     const products = await this.getAll();
     const product = products.find((p) => p.sku === sku);
     return product;
+  }
+
+  async delete(sku) {
+    const products = await this.getAll();
+    const productEliminated = products.find((e) => e.sku === sku);
+
+    if (!productEliminated) {
+      const err = new Error(`The product with the ${sku} does not exist.`);
+      err.status = 404;
+      throw err;
+    }
+
+    const newProducts = products.filter((e) => e.sku !== sku);
+    fs.writeFileSync(this.jsonPath, JSON.stringify(newProducts));
+    return productEliminated;
   }
 }
 
