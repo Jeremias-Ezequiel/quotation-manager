@@ -109,10 +109,10 @@ Add a new product in the database
 	"name" : "Example Product Name",
 	"brand" : "Company name",
 	"category" : "Example category",
-	"price_usd" : 123, // Number value
+	"price_usd" : 123,
 	"stock" : 1,
-	"is_active" : true // Optional, default true
-	"image_url" : "optional" // Optional
+	"is_active" : true
+	"image_url" : "optional"
 }
 ```
 
