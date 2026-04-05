@@ -13,12 +13,18 @@ class ProductService {
   async getAll(queries) {
     let products = await this.#repository.getAll(queries);
 
-    if (queries.category && !products.length) {
-      const err = new Error(
-        `The category ${queries.category} is not a valid category`,
+    if (queries.category && queries.category !== "all") {
+      const categoryExist = products.some(
+        (p) => p.category === queries.category,
       );
-      err.status = 400;
-      throw err;
+
+      if (!categoryExist) {
+        const err = new Error(
+          `The category ${queries.category} is not a valid category`,
+        );
+        err.status = 400;
+        throw err;
+      }
     }
 
     return products;
@@ -27,7 +33,7 @@ class ProductService {
   async getProductBySku({ sku }) {
     const product = await this.#repository.getBySku(sku);
 
-    if (!product || product.length === 0) {
+    if (!product) {
       const err = new Error("The product doesn't exist");
       err.status = 404;
       throw err;
