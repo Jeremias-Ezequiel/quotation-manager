@@ -104,13 +104,12 @@ export function renderQuoteList(products) {
       "align-items-center",
     );
 
-    li.innerHTML = `<h4 class='col-6'>${name}</h4>
+    li.innerHTML = `<h4 class='col-5'>${name}</h4>
                     <div class='d-flex flex-column col-3'> 
                       <p class='fw-bold'>USD: ${formatedUsd}</p>
                       <p class='fw-bold'>ARS: ${formatedTotalPriceARS}</p>
                     </div>
-                    <buttom class='btn btn-danger del-item-quote h-25 col-3' data-sku='${sku}'>delete</buttom>
-    `;
+                    <buttom class='btn btn-danger del-item-quote h-25 col-3' data-sku='${sku}'>delete</buttom>`;
     container.appendChild(li);
   });
 
@@ -141,15 +140,25 @@ export function renderQuoteList(products) {
     "my-3",
   );
   div.innerHTML = `<p>Subtotal USD: ${formatedTotalQuotationUsd}</p>
-                  <p>Subtotal ARS: ${formatedTotalQuotationArs}</p>
-                  <p>IVA (21%) ARS: ${totalArsWithTaxes.taxe}</p>
-                  <p>Final Total: ${totalArsWithTaxes.total}</p>
+                  <p id='subtotal-ars'>Subtotal ARS: ${formatedTotalQuotationArs}</p>
+                  <p id='taxes-iva'>IVA (21%) ARS: ${totalArsWithTaxes.taxe}</p>
+                  <p id='total-final'>Final Total: ${totalArsWithTaxes.total}</p>
   `;
   container.appendChild(div);
 
+  const containerBtn = document.createElement("DIV");
   const delButton = document.createElement("BUTTON");
+  const createPdfBtn = document.createElement("BUTTON");
+
+  containerBtn.classList.add("d-flex", "justify-content-around");
+
+  createPdfBtn.classList.add("btn", "btn-primary", "btn-create-pdf");
   delButton.classList.add("btn", "btn-danger", "btn-del-quote-list");
-  // delButton.id = "delQuoteList";
+
   delButton.innerHTML = "Clear List";
-  container.append(delButton);
+  createPdfBtn.innerHTML = "Create PDF";
+  containerBtn.append(delButton);
+  containerBtn.append(createPdfBtn);
+
+  container.appendChild(containerBtn);
 }
