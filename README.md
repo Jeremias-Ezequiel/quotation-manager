@@ -12,6 +12,7 @@
   - [Create Product](#create-product)
   - [Delete Product](#delete-product)
   - [Get Official Exchange Rates](#get-official-exchange-rate)
+- [Postman Collection](#postman-collection)
 
 ## Project Description
 
@@ -46,7 +47,7 @@ In the B2B IT sector, corporate infraestructure (servers, networking, licenses) 
 
 ## Use and Installations
 
-1. Ensure you have [Node.js](https://nodejs.org/en/download) and [Git]() installed on your computer
+1. Ensure you have [Node.js](https://nodejs.org/en/download) and [Git](https://git-scm.com/) installed on your computer
 2. Clone the repository
 
 ```bash
@@ -129,6 +130,10 @@ Delete a product by sku
 Use an external API to get the official exchange rate updated.
 
 - Route: `GET /api/exchange-rate/official`
+
+# Postman Collection
+
+[Public Postman Collection](https://documenter.getpostman.com/view/36953447/2sBXiqE957)
 
 # Author
 
