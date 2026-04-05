@@ -104,12 +104,12 @@ export function renderQuoteList(products) {
       "align-items-center",
     );
 
-    li.innerHTML = `<h4>${name}</h4>
-                    <div class='d-flex flex-column'> 
+    li.innerHTML = `<h4 class='col-6'>${name}</h4>
+                    <div class='d-flex flex-column col-3'> 
                       <p class='fw-bold'>USD: ${formatedUsd}</p>
                       <p class='fw-bold'>ARS: ${formatedTotalPriceARS}</p>
                     </div>
-                    <buttom class='btn btn-danger del-item-quote h-25' data-sku='${sku}'>delete</buttom>
+                    <buttom class='btn btn-danger del-item-quote h-25 col-3' data-sku='${sku}'>delete</buttom>
     `;
     container.appendChild(li);
   });

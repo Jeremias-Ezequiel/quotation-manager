@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
 
   renderPriceUsdToArs(exchangePrice.data, "today_price_ars");
   renderProductList(products, "products_container", exchangePrice);
+  renderQuoteList(productsList);
 });
 
 document.querySelectorAll("#categories-filter li").forEach((li) => {
