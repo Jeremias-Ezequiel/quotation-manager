@@ -1,3 +1,5 @@
+import { Product } from "../models/Product.js";
+
 class ProductService {
   #repository;
 
@@ -32,6 +34,46 @@ class ProductService {
     }
 
     return product;
+  }
+
+  async createProduct(body) {
+    const product = await this.#repository.getBySku(body.sku);
+
+    if (product) {
+      console.log("existe");
+      const err = new Error("The product already exist in the database");
+      err.status = 400;
+      throw err;
+    }
+
+    const {
+      sku,
+      name,
+      brand,
+      category,
+      price_usd,
+      stock,
+      image_url,
+      is_active,
+    } = body;
+
+    const allProducts = await this.#repository.getAll();
+    const id = allProducts.length + 1;
+    const newProduct = new Product(
+      id,
+      sku,
+      name,
+      brand,
+      category,
+      price_usd,
+      stock,
+      is_active,
+      image_url,
+    );
+
+    const result = await this.#repository.create(newProduct);
+
+    return result;
   }
 }
 

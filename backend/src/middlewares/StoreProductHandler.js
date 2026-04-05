@@ -6,7 +6,8 @@ export const StoreProductHandler = (req, res, next) => {
     category,
     price_usd,
     stock,
-    image_url = "",
+    image_url = null,
+    is_active = null,
   } = req.body;
 
   const errors = [];
@@ -65,6 +66,7 @@ export const StoreProductHandler = (req, res, next) => {
     price_usd: cleanPrice,
     stock: cleanStock,
     image_url: image_url,
+    is_active: null,
   };
 
   next();

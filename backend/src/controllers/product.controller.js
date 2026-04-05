@@ -15,7 +15,8 @@ class ProductController {
         data: result,
       });
     } catch (err) {
-      return res.status(500).json({
+      const status = err.status || 500;
+      return res.status(status).json({
         success: false,
         message: err.message,
         data: null,
@@ -34,6 +35,25 @@ class ProductController {
       });
     } catch (err) {
       return res.status(404).json({
+        success: false,
+        message: err.message,
+        data: null,
+      });
+    }
+  };
+
+  create = async (req, res) => {
+    try {
+      const result = await service.createProduct(req.body);
+
+      return res.status(201).json({
+        success: true,
+        message: "product created successfully",
+        data: result,
+      });
+    } catch (err) {
+      const status = err.status || 500;
+      return res.status(status).json({
         success: false,
         message: err.message,
         data: null,

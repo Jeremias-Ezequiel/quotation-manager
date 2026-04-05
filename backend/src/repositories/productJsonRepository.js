@@ -3,13 +3,14 @@ import fs from "node:fs";
 import path from "node:path";
 
 class ProductJsonRepository extends IProductInterface {
+  jsonPath = path.join(process.cwd(), "/src/data/products.json");
+
   async getAll(queries = {}) {
-    const jsonPath = path.join(process.cwd(), "/src/data/products.json");
-    const data = fs.readFileSync(jsonPath, "utf-8");
+    const data = fs.readFileSync(this.jsonPath, "utf-8");
     let products = JSON.parse(data);
 
     const { category, sort, search } = queries;
-    console.log(category);
+
     // By categories
     if (category && category !== "all") {
       products = products.filter((p) => p.category === category);
@@ -42,7 +43,13 @@ class ProductJsonRepository extends IProductInterface {
   }
 
   async getById(id) {}
-  async create(data) {}
+
+  async create(data) {
+    const jsonProducts = await this.getAll();
+    jsonProducts.push(data.toJson());
+    await fs.writeFileSync(this.jsonPath, JSON.stringify(jsonProducts));
+    return data.toJson();
+  }
   async update() {}
 
   async getBySku(sku) {

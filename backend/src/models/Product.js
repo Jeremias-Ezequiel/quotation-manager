@@ -1,4 +1,4 @@
-class Product {
+export class Product {
   #id;
   #sku;
   #name;
@@ -16,7 +16,7 @@ class Product {
     brand,
     category,
     price_usd,
-    stock = 1,
+    stock,
     is_active = true,
     image_url = "",
   ) {
