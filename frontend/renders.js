@@ -75,6 +75,9 @@ export function showModal({ data }) {
 }
 
 export function renderQuoteList(products) {
+  if (!products.length) {
+    return;
+  }
   const container = document.getElementById("quotation-list");
   container.innerHTML = "";
 
