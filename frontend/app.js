@@ -146,6 +146,30 @@ document
     }
   });
 
+document
+  .getElementById("btn-add-quote")
+  .addEventListener("click", async (e) => {
+    const sku = e.target.dataset.sku;
+    let product;
+    try {
+      product = await fetchData(`${LOCAL_API_URL}/api/products/${sku}`);
+      product.data.priceArs = priceUsd.data;
+    } catch (err) {}
+
+    if (product) {
+      productsList.push(product.data);
+      localStorage.setItem("quotation-list", JSON.stringify(productsList));
+      renderQuoteList(productsList);
+
+      const modal = document.getElementById("detailProductModal");
+      const modalInstance = bootstrap.Modal.getInstance(modal);
+
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    }
+  });
+
 async function updateProducts() {
   const queryParams = new URLSearchParams({
     category: filters.category,

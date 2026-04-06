@@ -55,7 +55,7 @@ export function renderPriceUsdToArs(value, containerId) {
 }
 
 export function showModal({ data }) {
-  const { name, price_usd, priceArs } = data;
+  const { sku, name, price_usd, priceArs } = data;
 
   document.getElementById("modal-product-title").innerHTML = name;
   document.getElementById("modal-product-usd").innerHTML =
@@ -66,6 +66,7 @@ export function showModal({ data }) {
   document.getElementById("modal-product-ars").innerHTML = totalPrice;
 
   const btnAdd = document.getElementById("btn-add-quote");
+  btnAdd.dataset.sku = sku;
   // btnAdd.onclick(() => {addToQuote(product);});
 
   const modal = document.getElementById("detailProductModal");
