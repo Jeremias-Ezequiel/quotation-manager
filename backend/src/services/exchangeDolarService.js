@@ -1,9 +1,14 @@
 class ExchangeDolarService {
+  #provider;
+
+  constructor(provider) {
+    this.#provider = provider;
+  }
+
   async getOfficialChange() {
     try {
-      const response = await fetch(`${process.env.DOLAR_API_URL}/oficial`);
-      const data = await response.json();
-      return data.venta;
+      const result = await this.#provider.fetchOfficialDolar();
+      return result;
     } catch (err) {
       throw new Error(err);
     }

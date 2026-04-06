@@ -1,6 +1,7 @@
 import ExchangeDolarService from "../services/exchangeDolarService.js";
+import DolarApiProvider from "../providers/DolarApiProvider.js";
 
-const service = new ExchangeDolarService();
+const service = new ExchangeDolarService(new DolarApiProvider());
 
 class ExchangeController {
   getOfficialChange = async (req, res) => {
